@@ -23,11 +23,16 @@ public class BootstrapClient {
     /**
      * Listing 8.1 Bootstrapping a client
      * */
+    //代码清单 8-1 引导一个客户端
     public void bootstrap() {
         EventLoopGroup group = new NioEventLoopGroup();
+        //创建一个 Bootstrap 类的实例以创建和连接新的客户端 Channel
         Bootstrap bootstrap = new Bootstrap();
+        //设置 EventLoopGroup，提供用于处理 Channel 事件的 EventLoop
         bootstrap.group(group)
+                //指定要使用的 Channel 实现
             .channel(NioSocketChannel.class)
+                //设置用于 Channel 事件和数据的 ChannelInboundHandler
             .handler(new SimpleChannelInboundHandler<ByteBuf>() {
                 @Override
                 protected void channelRead0(
@@ -36,6 +41,7 @@ public class BootstrapClient {
                     System.out.println("Received data");
                 }
                 });
+        //连接到远程主机
         ChannelFuture future =
             bootstrap.connect(
                     new InetSocketAddress("www.manning.com", 80));

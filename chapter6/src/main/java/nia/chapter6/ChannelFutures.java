@@ -13,6 +13,7 @@ import io.netty.channel.socket.nio.NioSocketChannel;
  *
  * Listing 6.13 Adding a ChannelFutureListener to a ChannelFuture
  */
+//代码清单 6-13 添加 ChannelFutureListener 到 ChannelFuture
 public class ChannelFutures {
     private static final Channel CHANNEL_FROM_SOMEWHERE = new NioSocketChannel();
     private static final ByteBuf SOME_MSG_FROM_SOMEWHERE = Unpooled.buffer(1024);
@@ -24,6 +25,7 @@ public class ChannelFutures {
         Channel channel = CHANNEL_FROM_SOMEWHERE; // get reference to pipeline;
         ByteBuf someMessage = SOME_MSG_FROM_SOMEWHERE; // get reference to pipeline;
         //...
+        //调用出站操作（如 write（）方法）所返回的 ChannelFuture上的 addListener（）方法
         io.netty.channel.ChannelFuture future = channel.write(someMessage);
         future.addListener(new ChannelFutureListener() {
             @Override
